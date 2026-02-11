@@ -16,14 +16,23 @@ enum  Argument {
 int main(int argc, char* argv[]) {
 	HRESULT hr= CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 
-	assert(argc >= NumArgument);
+	if (argc < NumArgument) {
+		// 使用方法を出力
+		TextureConverter::OutputUsage();
+		return 0;
+	}
+
+	// オプションの数
+	int numOptions = argc - NumArgument;
+	// オプション配列
+	char** options = argv+NumArgument;
 
 	TextureConverter converter;
-	converter.ConvertTextureWICToDDS(argv[kFilePath]);
+	converter.ConvertTextureWICToDDS(argv[kFilePath],numOptions,options);
 
 	// COM ライブラリの終了
 	CoUninitialize();
 
-	system("pause");
+	//system("pause");
 	return 0;
 }
