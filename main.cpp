@@ -1,5 +1,6 @@
 
 #include"myClass/Converter/TextureConverter.h"
+#include "WebAPI/WebApiClient.h"
 
 #include<cstdio>
 #include<cstdlib>
@@ -14,23 +15,25 @@ enum  Argument {
 };
 
 int main(int argc, char* argv[]) {
-	HRESULT hr= CoInitializeEx(nullptr, COINIT_MULTITHREADED);
+	WebAPI::ExecuteTask();
+
+	HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
 
 	if (argc < NumArgument) {
-		// Žg—p•û–@‚ðo—Í
+		// ä½¿ç”¨æ–¹æ³•ã‚’å‡ºåŠ›
 		TextureConverter::OutputUsage();
 		return 0;
 	}
 
-	// ƒIƒvƒVƒ‡ƒ“‚Ì”
+	// ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®æ•°
 	int numOptions = argc - NumArgument;
-	// ƒIƒvƒVƒ‡ƒ“”z—ñ
-	char** options = argv+NumArgument;
+	// ã‚ªãƒ—ã‚·ãƒ§ãƒ³é…åˆ—
+	char** options = argv + NumArgument;
 
 	TextureConverter converter;
-	converter.ConvertTextureWICToDDS(argv[kFilePath],numOptions,options);
+	converter.ConvertTextureWICToDDS(argv[kFilePath], numOptions, options);
 
-	// COM ƒ‰ƒCƒuƒ‰ƒŠ‚ÌI—¹
+	// COM ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®çµ‚äº†
 	CoUninitialize();
 
 	//system("pause");
